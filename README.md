@@ -1,94 +1,168 @@
 # Developer Timesheet Application
 
-Aplicación elegante para gestionar hojas de trabajo de desarrolladores de software.
+Aplicación elegante para gestionar hojas de trabajo de desarrolladores de software. Construida con Next.js y Supabase.
 
 ## Características
 
 - **Panel de Administración**: Gestión completa de desarrolladores y registros de tiempo
 - **Vista de Información**: Dashboard con estadísticas, gráficos y tablas
 - **Diseño Elegante**: Interfaz moderna con tema oscuro y efectos visuales
-- **API REST**: Backend completo para operaciones CRUD
+- **API REST**: Backend completo con API Routes de Next.js
+- **Base de Datos en la Nube**: Supabase como backend de datos
 
 ## Tecnologías
 
-- **Backend**: Flask (Python)
-- **Base de Datos**: SQLite
-- **Frontend**: HTML5, CSS3, JavaScript vanilla
-- **Diseño**: Tema oscuro con gradientes y animaciones
+- **Framework**: Next.js 14 (React)
+- **Lenguaje**: TypeScript
+- **Base de Datos**: Supabase (PostgreSQL)
+- **Estilos**: CSS3 con variables CSS y tema oscuro
+- **Diseño**: Interfaz responsive con animaciones
 
 ## Instalación
 
-1. Crear entorno virtual:
+### 1. Configurar Supabase
+
+1. Crear una cuenta en [Supabase](https://supabase.com)
+2. Crear un nuevo proyecto
+3. Ir a SQL Editor y ejecutar el contenido de `supabase-schema.sql`
+4. Obtener las credenciales del proyecto (Settings > API)
+
+### 2. Configurar Variables de Entorno
+
+1. Copiar el archivo de ejemplo:
 ```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# o
-venv\Scripts\activate  # Windows
+cp .env.local.example .env.local
 ```
 
-2. Instalar dependencias:
-```bash
-pip install -r requirements.txt
+2. Editar `.env.local` con tus credenciales de Supabase:
+```
+NEXT_PUBLIC_SUPABASE_URL=tu_url_de_supabase
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_anon_key
 ```
 
-3. Ejecutar la aplicación:
+### 3. Instalar Dependencias
+
 ```bash
-python app.py
+npm install
 ```
 
-4. Abrir en el navegador:
-- Vista principal: http://localhost:5000/
-- Panel de administración: http://localhost:5000/admin
+### 4. Ejecutar en Desarrollo
+
+```bash
+npm run dev
+```
+
+### 5. Abrir en el Navegador
+
+- Vista principal: http://localhost:3000/
+- Panel de administración: http://localhost:3000/admin
+
+## Producción
+
+Para construir la aplicación para producción:
+
+```bash
+npm run build
+npm start
+```
 
 ## Estructura del Proyecto
 
 ```
 curriculum_online/
-├── app.py                 # Aplicación Flask principal
-├── requirements.txt       # Dependencias Python
-├── templates/
-│   ├── index.html        # Vista principal
-│   └── admin.html        # Panel de administración
-└── static/
-    ├── css/
-    │   └── style.css     # Estilos elegantes
-    └── js/
-        ├── main.js       # Lógica vista principal
-        └── admin.js      # Lógica panel admin
+├── pages/                      # Páginas de Next.js
+│   ├── _app.tsx               # Componente App global
+│   ├── _document.tsx          # Documento HTML personalizado
+│   ├── index.tsx              # Vista principal
+│   ├── admin.tsx              # Panel de administración
+│   └── api/                   # API Routes
+│       ├── developers/
+│       │   ├── index.ts       # GET, POST developers
+│       │   └── [id].ts        # GET, PUT, DELETE developer
+│       ├── timesheets/
+│       │   ├── index.ts       # GET, POST timesheets
+│       │   └── [id].ts        # GET, PUT, DELETE timesheet
+│       └── statistics/
+│           └── index.ts       # GET statistics
+├── lib/
+│   └── supabase.ts            # Cliente de Supabase
+├── types/
+│   └── database.ts            # Tipos TypeScript
+├── styles/
+│   └── globals.css            # Estilos globales
+├── public/                    # Archivos estáticos
+├── package.json               # Dependencias npm
+├── tsconfig.json              # Configuración TypeScript
+├── next.config.js             # Configuración Next.js
+├── supabase-schema.sql        # Esquema de base de datos
+└── .env.local.example         # Ejemplo de variables de entorno
 ```
 
 ## Funcionalidades
 
-### Panel de Administración
+### Panel de Administración (`/admin`)
 - Crear, editar y eliminar desarrolladores
 - Registrar horas de trabajo por proyecto
 - Categorizar tareas por tipo (Desarrollo, Testing, etc.)
-- Seguimiento de estado de tareas
+- Seguimiento de estado de tareas (Completado, En Progreso, Bloqueado)
 
-### Vista de Información
+### Vista de Información (`/`)
 - Estadísticas generales (desarrolladores, horas totales, registros)
 - Tarjetas de desarrolladores con métricas individuales
-- Tabla de registros con filtros
+- Tabla de registros con filtros por desarrollador
 - Gráficos de distribución de horas por tipo y proyecto
 
 ## API Endpoints
 
 ### Desarrolladores
-- `GET /api/developers` - Listar todos
-- `POST /api/developers` - Crear nuevo
-- `GET /api/developers/:id` - Obtener uno
-- `PUT /api/developers/:id` - Actualizar
-- `DELETE /api/developers/:id` - Eliminar
+- `GET /api/developers` - Listar todos los desarrolladores
+- `POST /api/developers` - Crear nuevo desarrollador
+- `GET /api/developers/:id` - Obtener desarrollador específico
+- `PUT /api/developers/:id` - Actualizar desarrollador
+- `DELETE /api/developers/:id` - Eliminar desarrollador
 
 ### Timesheets
-- `GET /api/timesheets` - Listar todos
-- `POST /api/timesheets` - Crear nuevo
-- `GET /api/timesheets/:id` - Obtener uno
-- `PUT /api/timesheets/:id` - Actualizar
-- `DELETE /api/timesheets/:id` - Eliminar
+- `GET /api/timesheets` - Listar todos los registros
+- `GET /api/timesheets?developer_id=X` - Filtrar por desarrollador
+- `POST /api/timesheets` - Crear nuevo registro
+- `GET /api/timesheets/:id` - Obtener registro específico
+- `PUT /api/timesheets/:id` - Actualizar registro
+- `DELETE /api/timesheets/:id` - Eliminar registro
 
 ### Estadísticas
 - `GET /api/statistics` - Obtener estadísticas generales
+
+## Modelos de Datos
+
+### Developer
+- `id`: number (auto-generado)
+- `name`: string (requerido)
+- `email`: string (único, requerido)
+- `position`: string (requerido)
+- `department`: string (requerido)
+- `avatar_url`: string (opcional)
+- `created_at`: timestamp
+
+### Timesheet
+- `id`: number (auto-generado)
+- `developer_id`: number (referencia a Developer)
+- `date`: date (requerido)
+- `project_name`: string (requerido)
+- `task_description`: text (requerido)
+- `hours_worked`: number (requerido)
+- `task_type`: string (Development, Testing, Meeting, etc.)
+- `status`: string (Completed, In Progress, Blocked)
+- `notes`: text (opcional)
+- `created_at`: timestamp
+
+## Despliegue
+
+Esta aplicación está lista para desplegarse en:
+- **Vercel** (recomendado para Next.js)
+- **Netlify**
+- Cualquier plataforma que soporte Node.js
+
+Las variables de entorno deben configurarse en la plataforma de despliegue.
 
 ## Licencia
 
