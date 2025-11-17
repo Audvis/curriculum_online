@@ -1,0 +1,156 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { ExternalLink, Github } from 'lucide-react';
+
+type Project = {
+  id: string;
+  title: string;
+  description?: string;
+  technologies?: string;
+  liveUrl?: string;
+  githubUrl?: string;
+  imageUrl?: string;
+  featured: boolean;
+};
+
+export function ProjectsSection({ projects }: { projects: Project[] }) {
+  if (!Array.isArray(projects) || projects.length === 0) return null;
+  const featuredProjects = projects.filter((p) => p.featured);
+  const otherProjects = projects.filter((p) => !p.featured);
+
+  return (
+    <section id="projects" className="py-20 relative z-10">
+      <div className="container mx-auto px-6">
+        <motion.h2
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+        >
+          Proyectos Destacados
+        </motion.h2>
+
+        {featuredProjects.length > 0 && (
+          <div className="mb-16">
+            <h3 className="text-2xl font-semibold text-purple-300 mb-8 text-center">Destacados</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:bg-white/15 transition-all group"
+                >
+                  {project.imageUrl && (
+                    <div className="h-48 overflow-hidden">
+                      <img
+                        src={project.imageUrl}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
+                    {project.description && (
+                      <p className="text-gray-300 mb-4 line-clamp-3">{project.description}</p>
+                    )}
+                    {project.technologies && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.technologies
+                          .split(',')
+                          .slice(0, 3)
+                          .map((tech, i) => (
+                            <span
+                              key={i}
+                              className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-full text-xs border border-purple-600/30"
+                            >
+                              {tech.trim()}
+                            </span>
+                          ))}
+                      </div>
+                    )}
+                    <div className="flex gap-3">
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm"
+                        >
+                          <ExternalLink size={16} />
+                          <span>Ver</span>
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm"
+                        >
+                          <Github size={16} />
+                          <span>Código</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {otherProjects.length > 0 && (
+          <div>
+            <h3 className="text-2xl font-semibold text-purple-300 mb-8 text-center">Otros Proyectos</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {otherProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/15 transition-all"
+                >
+                  <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
+                  {project.description && (
+                    <p className="text-gray-300 text-sm mb-3 line-clamp-2">{project.description}</p>
+                  )}
+                  <div className="flex gap-3">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm"
+                      >
+                        <ExternalLink size={14} />
+                        <span>Ver</span>
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm"
+                      >
+                        <Github size={14} />
+                        <span>Código</span>
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
