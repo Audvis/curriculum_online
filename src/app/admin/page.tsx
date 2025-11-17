@@ -83,6 +83,7 @@ export default function AdminPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -90,6 +91,7 @@ export default function AdminPage() {
 
   const fetchData = async () => {
     try {
+      setFetchError(null);
       const [personalRes, expRes, eduRes, projRes, skillsRes] = await Promise.all([
         fetch('/api/personal-info'),
         fetch('/api/experience'),
@@ -98,12 +100,29 @@ export default function AdminPage() {
         fetch('/api/skills')
       ]);
 
+      // Validate all responses before parsing
+      if (!personalRes.ok) {
+        console.error('Failed to fetch personal info:', personalRes.status);
+      }
+      if (!expRes.ok) {
+        console.error('Failed to fetch experiences:', expRes.status);
+      }
+      if (!eduRes.ok) {
+        console.error('Failed to fetch education:', eduRes.status);
+      }
+      if (!projRes.ok) {
+        console.error('Failed to fetch projects:', projRes.status);
+      }
+      if (!skillsRes.ok) {
+        console.error('Failed to fetch skills:', skillsRes.status);
+      }
+
       const [personalData, expData, eduData, projData, skillsData] = await Promise.all([
-        personalRes.json(),
-        expRes.json(),
-        eduRes.json(),
-        projRes.json(),
-        skillsRes.json()
+        personalRes.ok ? personalRes.json() : null,
+        expRes.ok ? expRes.json() : [],
+        eduRes.ok ? eduRes.json() : [],
+        projRes.ok ? projRes.json() : [],
+        skillsRes.ok ? skillsRes.json() : []
       ]);
 
       setPersonalInfo(personalData);
@@ -113,6 +132,7 @@ export default function AdminPage() {
       setSkills(Array.isArray(skillsData) ? skillsData : []);
     } catch (error) {
       console.error('Error fetching data:', error);
+      setFetchError('Error al cargar los datos. Intente recargar la página.');
     } finally {
       setLoading(false);
     }
@@ -136,6 +156,11 @@ export default function AdminPage() {
 
   return (
     <div className="container mx-auto p-6">
+      {fetchError && (
+        <div className="mb-6 p-4 rounded-md bg-red-500/20 border border-red-500/50 text-red-200">
+          {fetchError}
+        </div>
+      )}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

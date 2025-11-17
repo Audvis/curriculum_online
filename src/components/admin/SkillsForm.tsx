@@ -52,6 +52,7 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingSkill, setEditingSkill] = useState<Skill | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<Omit<Skill, 'id'>>({
     name: '',
@@ -66,16 +67,18 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
       level: 3
     });
     setEditingSkill(null);
+    setError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
     try {
       const method = editingSkill ? 'PUT' : 'POST';
-      const url = editingSkill ? '/api/skills' : '/api/skills';
-      
+      const url = '/api/skills';
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -88,9 +91,13 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
         onUpdate();
         setIsDialogOpen(false);
         resetForm();
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Error al guardar la habilidad');
       }
     } catch (error) {
       console.error('Error saving skill:', error);
+      setError('Error de conexión. Intente nuevamente.');
     } finally {
       setLoading(false);
     }
@@ -103,6 +110,7 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
       category: skill.category,
       level: skill.level
     });
+    setError(null);
     setIsDialogOpen(true);
   };
 
@@ -116,9 +124,13 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
 
       if (response.ok) {
         onUpdate();
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || 'Error al eliminar la habilidad');
       }
     } catch (error) {
       console.error('Error deleting skill:', error);
+      alert('Error de conexión al eliminar');
     }
   };
 
@@ -212,7 +224,7 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
                 <Label className="text-white">Vista Previa del Nivel</Label>
                 <div className="flex items-center gap-2">
                   <div className="flex-1 bg-white/10 rounded-full h-2 overflow-hidden">
-                    <div 
+                    <div
                       className={`h-full ${LEVEL_COLORS[formData.level as keyof typeof LEVEL_COLORS]} transition-all duration-300`}
                       style={{ width: `${(formData.level / 5) * 100}%` }}
                     />
@@ -223,8 +235,14 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
                 </div>
               </div>
 
-              <Button 
-                type="submit" 
+              {error && (
+                <div className="p-3 rounded-md bg-red-500/20 border border-red-500/50 text-red-200">
+                  {error}
+                </div>
+              )}
+
+              <Button
+                type="submit"
                 disabled={loading}
                 className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white w-full"
               >

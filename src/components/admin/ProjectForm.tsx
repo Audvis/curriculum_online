@@ -30,6 +30,7 @@ export function ProjectForm({ projects, onUpdate }: ProjectFormProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<Omit<Project, 'id'>>({
     title: '',
@@ -52,16 +53,18 @@ export function ProjectForm({ projects, onUpdate }: ProjectFormProps) {
       featured: false
     });
     setEditingProject(null);
+    setError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
     try {
       const method = editingProject ? 'PUT' : 'POST';
-      const url = editingProject ? '/api/projects' : '/api/projects';
-      
+      const url = '/api/projects';
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -74,9 +77,13 @@ export function ProjectForm({ projects, onUpdate }: ProjectFormProps) {
         onUpdate();
         setIsDialogOpen(false);
         resetForm();
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Error al guardar el proyecto');
       }
     } catch (error) {
       console.error('Error saving project:', error);
+      setError('Error de conexión. Intente nuevamente.');
     } finally {
       setLoading(false);
     }
@@ -93,6 +100,7 @@ export function ProjectForm({ projects, onUpdate }: ProjectFormProps) {
       imageUrl: project.imageUrl,
       featured: project.featured
     });
+    setError(null);
     setIsDialogOpen(true);
   };
 
@@ -106,9 +114,13 @@ export function ProjectForm({ projects, onUpdate }: ProjectFormProps) {
 
       if (response.ok) {
         onUpdate();
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || 'Error al eliminar el proyecto');
       }
     } catch (error) {
       console.error('Error deleting project:', error);
+      alert('Error de conexión al eliminar');
     }
   };
 
@@ -224,8 +236,14 @@ export function ProjectForm({ projects, onUpdate }: ProjectFormProps) {
                 />
               </div>
 
-              <Button 
-                type="submit" 
+              {error && (
+                <div className="p-3 rounded-md bg-red-500/20 border border-red-500/50 text-red-200">
+                  {error}
+                </div>
+              )}
+
+              <Button
+                type="submit"
                 disabled={loading}
                 className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white w-full"
               >

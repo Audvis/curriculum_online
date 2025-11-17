@@ -42,26 +42,38 @@ export function PersonalInfoForm({ data, onUpdate }: PersonalInfoFormProps) {
   });
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
+    setSuccess(false);
 
     try {
       const method = data?.id ? 'PUT' : 'POST';
+      const body = data?.id ? { ...formData, id: data.id } : formData;
+
       const response = await fetch('/api/personal-info', {
         method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(body),
       });
 
       if (response.ok) {
+        setSuccess(true);
         onUpdate();
+        setTimeout(() => setSuccess(false), 3000);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Error al guardar la información');
       }
     } catch (error) {
       console.error('Error saving personal info:', error);
+      setError('Error de conexión. Intente nuevamente.');
     } finally {
       setLoading(false);
     }
@@ -190,8 +202,20 @@ export function PersonalInfoForm({ data, onUpdate }: PersonalInfoFormProps) {
         />
       </div>
 
-      <Button 
-        type="submit" 
+      {error && (
+        <div className="p-3 rounded-md bg-red-500/20 border border-red-500/50 text-red-200">
+          {error}
+        </div>
+      )}
+
+      {success && (
+        <div className="p-3 rounded-md bg-green-500/20 border border-green-500/50 text-green-200">
+          Información guardada correctamente
+        </div>
+      )}
+
+      <Button
+        type="submit"
         disabled={loading}
         className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
       >
