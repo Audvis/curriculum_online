@@ -30,6 +30,7 @@ export function ExperienceForm({ experiences, onUpdate }: ExperienceFormProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingExperience, setEditingExperience] = useState<Experience | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<Omit<Experience, 'id'>>({
     company: '',
@@ -52,11 +53,13 @@ export function ExperienceForm({ experiences, onUpdate }: ExperienceFormProps) {
       technologies: ''
     });
     setEditingExperience(null);
+    setError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
     try {
       const method = editingExperience ? 'PUT' : 'POST';
@@ -83,9 +86,13 @@ export function ExperienceForm({ experiences, onUpdate }: ExperienceFormProps) {
         onUpdate();
         setIsDialogOpen(false);
         resetForm();
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Error al guardar la experiencia');
       }
     } catch (error) {
       console.error('Error saving experience:', error);
+      setError('Error de conexión. Intente nuevamente.');
     } finally {
       setLoading(false);
     }
@@ -102,6 +109,7 @@ export function ExperienceForm({ experiences, onUpdate }: ExperienceFormProps) {
       current: experience.current,
       technologies: experience.technologies
     });
+    setError(null);
     setIsDialogOpen(true);
   };
 
@@ -115,9 +123,13 @@ export function ExperienceForm({ experiences, onUpdate }: ExperienceFormProps) {
 
       if (response.ok) {
         onUpdate();
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || 'Error al eliminar la experiencia');
       }
     } catch (error) {
       console.error('Error deleting experience:', error);
+      alert('Error de conexión al eliminar');
     }
   };
 
@@ -241,8 +253,14 @@ export function ExperienceForm({ experiences, onUpdate }: ExperienceFormProps) {
                 />
               </div>
 
-              <Button 
-                type="submit" 
+              {error && (
+                <div className="p-3 rounded-md bg-red-500/20 border border-red-500/50 text-red-200">
+                  {error}
+                </div>
+              )}
+
+              <Button
+                type="submit"
                 disabled={loading}
                 className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white w-full"
               >

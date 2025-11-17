@@ -29,13 +29,17 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const data = await request.json();
-    const { id } = data;
-    
+    const { id, ...dataWithoutId } = data;
+
+    if (!id) {
+      return NextResponse.json({ error: 'ID is required for update' }, { status: 400 });
+    }
+
     const project = await db.project.update({
       where: { id },
-      data
+      data: dataWithoutId
     });
-    
+
     return NextResponse.json(project);
   } catch (error) {
     console.error('Update project error:', error);
