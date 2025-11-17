@@ -1,169 +1,216 @@
-# Developer Timesheet Application
+# Portfolio Profesional con Next.js y Three.js
 
-Aplicación elegante para gestionar hojas de trabajo de desarrolladores de software. Construida con Next.js y Supabase.
+Un portfolio moderno y futurista para desarrolladores de software, construido con Next.js 15, TypeScript, Tailwind CSS y animaciones 3D con Three.js.
 
-## Características
+## 🚀 Características
 
-- **Panel de Administración**: Gestión completa de desarrolladores y registros de tiempo
-- **Vista de Información**: Dashboard con estadísticas, gráficos y tablas
-- **Diseño Elegante**: Interfaz moderna con tema oscuro y efectos visuales
-- **API REST**: Backend completo con API Routes de Next.js
-- **Base de Datos en la Nube**: Supabase como backend de datos
+### 🎨 Diseño Futurista Minimalista
+- Interfaz elegante con gradientes de colores púrpura y rosa
+- Efectos glassmorphism y animaciones suaves
+- Diseño responsive optimizado para todos los dispositivos
+- Scrollbar personalizada y efectos de hover interactivos
 
-## Tecnologías
+### 🌐 Animaciones 3D con Three.js
+- Campo de partículas interactivo que responde al movimiento del mouse
+- Geometrías flotantes animadas (icosaedros, torus knot, cristales)
+- Fondos 3D dinámicos con rotación automática
+- Efectos de iluminación y materiales metalizados
 
-- **Framework**: Next.js 14 (React)
-- **Lenguaje**: TypeScript
-- **Base de Datos**: Supabase (PostgreSQL)
-- **Estilos**: CSS3 con variables CSS y tema oscuro
-- **Diseño**: Interfaz responsive con animaciones
+### 📱 Panel de Administración Completo
+- Gestión completa de información personal
+- CRUD para experiencia laboral, educación, proyectos y habilidades
+- Interfaz intuitiva con formularios validados
+- Vista previa en tiempo real del portfolio
 
-## Instalación
+### 🛠️ Stack Tecnológico
+- **Frontend**: Next.js 15 con App Router
+- **Lenguaje**: TypeScript 5
+- **Estilos**: Tailwind CSS 4 con shadcn/ui
+- **Base de Datos**: Prisma ORM con SQLite
+- **Animaciones**: Three.js, React Three Fiber, Framer Motion
+- **Estado**: Zustand y TanStack Query
 
-### 1. Configurar Supabase
+## 📋 Estructura del Proyecto
 
-1. Crear una cuenta en [Supabase](https://supabase.com)
-2. Crear un nuevo proyecto
-3. Ir a SQL Editor y ejecutar el contenido de `supabase-schema.sql`
-4. Obtener las credenciales del proyecto (Settings > API)
+```
+src/
+├── app/                    # App Router de Next.js
+│   ├── admin/             # Panel de administración
+│   ├── api/               # Endpoints de la API
+│   └── page.tsx           # Página principal del portfolio
+├── components/
+│   ├── admin/             # Componentes del admin
+│   ├── three/             # Componentes 3D
+│   └── ui/                # Componentes shadcn/ui
+├── lib/
+│   └── db.ts              # Cliente de Prisma
+└── hooks/                 # Hooks personalizados
+```
 
-### 2. Configurar Variables de Entorno
+## 🚀 Comenzando
 
-1. Copiar el archivo de ejemplo:
+### Prerrequisitos
+- Node.js 18+
+- npm o yarn
+
+### Instalación
+
+1. Clona el repositorio:
 ```bash
-cp .env.local.example .env.local
+git clone <repository-url>
+cd portfolio-nextjs-threejs
 ```
 
-2. Editar `.env.local` con tus credenciales de Supabase:
-```
-NEXT_PUBLIC_SUPABASE_URL=tu_url_de_supabase
-NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_anon_key
-```
-
-### 3. Instalar Dependencias
-
+2. Instala las dependencias:
 ```bash
 npm install
 ```
 
-### 4. Ejecutar en Desarrollo
+3. Configura la base de datos:
+```bash
+npm run db:push
+```
 
+4. Inicia el servidor de desarrollo:
 ```bash
 npm run dev
 ```
 
-### 5. Abrir en el Navegador
+5. Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-- Vista principal: http://localhost:3000/
-- Panel de administración: http://localhost:3000/admin
+## 📝 Uso
 
-## Producción
+### Configuración Inicial
 
-Para construir la aplicación para producción:
+1. **Accede al Panel de Administración**:
+   - Navega a `http://localhost:3000/admin`
+   - Aquí podrás configurar toda tu información profesional
+
+2. **Completa tu Información Personal**:
+   - Nombre completo, título profesional, biografía
+   - Información de contacto (email, teléfono, ubicación)
+   - Redes sociales (GitHub, LinkedIn, website)
+
+3. **Agrega tu Experiencia Laboral**:
+   - Empresas donde has trabajado
+   - Posiciones y fechas de empleo
+   - Descripciones y tecnologías utilizadas
+
+4. **Registra tu Educación**:
+   - Instituciones académicas
+   - Títulos y grados obtenidos
+   - Fechas de estudio
+
+5. **Muestra tus Proyectos**:
+   - Proyectos destacados y personales
+   - Descripciones y tecnologías
+   - Enlaces a demos y repositorios
+
+6. **Lista tus Habilidades**:
+   - Competencias técnicas por categorías
+   - Niveles de dominio (Principiante a Experto)
+
+### Personalización
+
+#### Colores y Tema
+Los colores principales están definidos en las variables CSS:
+- **Púrpura principal**: `#8b5cf6`
+- **Rosa secundario**: `#ec4899`
+- **Cian acento**: `#06b6d4`
+
+#### Animaciones 3D
+Personaliza las animaciones en `src/components/three/`:
+- `ParticleField.tsx`: Control de partículas
+- `FloatingGeometry.tsx`: Geometrías animadas
+- `AnimatedBackground.tsx`: Composición del fondo
+
+#### Estilos CSS
+Clases personalizadas en `globals.css`:
+- `.glass-morphism`: Efecto cristal
+- `.text-gradient`: Texto con gradiente
+- `.hover-lift`: Efecto de elevación al hover
+
+## 🔧 Scripts Disponibles
 
 ```bash
-npm run build
-npm start
+npm run dev          # Inicia servidor de desarrollo
+npm run build        # Construye para producción
+npm run start        # Inicia servidor de producción
+npm run lint         # Verifica calidad del código
+npm run db:push      # Sincroniza schema con la BD
+npm run db:studio    # Abre Prisma Studio
 ```
 
-## Estructura del Proyecto
+## 📊 Base de Datos
 
+El proyecto utiliza **SQLite** con **Prisma ORM**. El esquema incluye:
+
+- **PersonalInfo**: Información personal y de contacto
+- **Experience**: Experiencia laboral
+- **Education**: Formación académica
+- **Project**: Proyectos destacados
+- **Skill**: Habilidades técnicas
+
+## 🎨 Componentes 3D
+
+### ParticleField
+Campo de partículas interactivo con:
+- 1000+ partículas animadas
+- Respuesta al movimiento del mouse
+- Efectos de brillo aditivos
+
+### FloatingGeometry
+Geometrías 3D animadas:
+- Icosaedros rotantes
+- Torus knots complejos
+- Cristales pulsantes
+
+### AnimatedBackground
+Composición completa del fondo 3D con:
+- Múltiples variantes (particles, geometric, mixed)
+- Controles de órbita automáticos
+- Iluminación ambiental y puntual
+
+## 🚀 Despliegue
+
+### Vercel (Recomendado)
+1. Conecta tu repositorio a Vercel
+2. Configura las variables de entorno
+3. Despliega automáticamente
+
+### Docker
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
 ```
-curriculum_online/
-├── pages/                      # Páginas de Next.js
-│   ├── _app.tsx               # Componente App global
-│   ├── _document.tsx          # Documento HTML personalizado
-│   ├── index.tsx              # Vista principal
-│   ├── admin.tsx              # Panel de administración
-│   └── api/                   # API Routes
-│       ├── developers/
-│       │   ├── index.ts       # GET, POST developers
-│       │   └── [id].ts        # GET, PUT, DELETE developer
-│       ├── timesheets/
-│       │   ├── index.ts       # GET, POST timesheets
-│       │   └── [id].ts        # GET, PUT, DELETE timesheet
-│       └── statistics/
-│           └── index.ts       # GET statistics
-├── lib/
-│   └── supabase.ts            # Cliente de Supabase
-├── types/
-│   └── database.ts            # Tipos TypeScript
-├── styles/
-│   └── globals.css            # Estilos globales
-├── public/                    # Archivos estáticos
-├── package.json               # Dependencias npm
-├── tsconfig.json              # Configuración TypeScript
-├── next.config.js             # Configuración Next.js
-├── supabase-schema.sql        # Esquema de base de datos
-└── .env.local.example         # Ejemplo de variables de entorno
-```
 
-## Funcionalidades
+## 🤝 Contribuir
 
-### Panel de Administración (`/admin`)
-- Crear, editar y eliminar desarrolladores
-- Registrar horas de trabajo por proyecto
-- Categorizar tareas por tipo (Desarrollo, Testing, etc.)
-- Seguimiento de estado de tareas (Completado, En Progreso, Bloqueado)
+1. Fork el proyecto
+2. Crea una rama (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
 
-### Vista de Información (`/`)
-- Estadísticas generales (desarrolladores, horas totales, registros)
-- Tarjetas de desarrolladores con métricas individuales
-- Tabla de registros con filtros por desarrollador
-- Gráficos de distribución de horas por tipo y proyecto
+## 📄 Licencia
 
-## API Endpoints
+Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) para detalles.
 
-### Desarrolladores
-- `GET /api/developers` - Listar todos los desarrolladores
-- `POST /api/developers` - Crear nuevo desarrollador
-- `GET /api/developers/:id` - Obtener desarrollador específico
-- `PUT /api/developers/:id` - Actualizar desarrollador
-- `DELETE /api/developers/:id` - Eliminar desarrollador
+## 🙏 Agradecimientos
 
-### Timesheets
-- `GET /api/timesheets` - Listar todos los registros
-- `GET /api/timesheets?developer_id=X` - Filtrar por desarrollador
-- `POST /api/timesheets` - Crear nuevo registro
-- `GET /api/timesheets/:id` - Obtener registro específico
-- `PUT /api/timesheets/:id` - Actualizar registro
-- `DELETE /api/timesheets/:id` - Eliminar registro
+- [Next.js](https://nextjs.org/) - Framework React
+- [Three.js](https://threejs.org/) - Biblioteca 3D
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS
+- [shadcn/ui](https://ui.shadcn.com/) - Componentes UI
+- [Prisma](https://www.prisma.io/) - ORM
+- [Framer Motion](https://www.framer.com/motion/) - Animaciones
 
-### Estadísticas
-- `GET /api/statistics` - Obtener estadísticas generales
+---
 
-## Modelos de Datos
-
-### Developer
-- `id`: number (auto-generado)
-- `name`: string (requerido)
-- `email`: string (único, requerido)
-- `position`: string (requerido)
-- `department`: string (requerido)
-- `avatar_url`: string (opcional)
-- `created_at`: timestamp
-
-### Timesheet
-- `id`: number (auto-generado)
-- `developer_id`: number (referencia a Developer)
-- `date`: date (requerido)
-- `project_name`: string (requerido)
-- `task_description`: text (requerido)
-- `hours_worked`: number (requerido)
-- `task_type`: string (Development, Testing, Meeting, etc.)
-- `status`: string (Completed, In Progress, Blocked)
-- `notes`: text (opcional)
-- `created_at`: timestamp
-
-## Despliegue
-
-Esta aplicación está lista para desplegarse en:
-- **Vercel** (recomendado para Next.js)
-- **Netlify**
-- Cualquier plataforma que soporte Node.js
-
-Las variables de entorno deben configurarse en la plataforma de despliegue.
-
-## Licencia
-
-MIT License
+**Creado con ❤️ para desarrolladores que buscan destacar en el mundo tech**
