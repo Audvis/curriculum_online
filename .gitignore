@@ -47,3 +47,7 @@ test
 prompt
 
 server.log
+*.db
+*.sqlite
+prisma/*.db
+db/*.db
