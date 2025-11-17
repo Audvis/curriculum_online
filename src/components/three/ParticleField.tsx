@@ -13,7 +13,7 @@ interface ParticleFieldProps {
 export function ParticleField({ 
   count = 1000, 
   radius = 10, 
-  color = '#8b5cf6', 
+  color = '#3b82f6', 
   speed = 0.5 
 }: ParticleFieldProps) {
   const points = useRef<THREE.Points>(null);

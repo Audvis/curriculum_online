@@ -130,11 +130,11 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full"
+          className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"
         />
       </div>
     );
@@ -142,13 +142,13 @@ export default function Home() {
 
   if (!personalInfo) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
         <div className="text-center text-white">
           <h1 className="text-2xl font-bold mb-4">Portfolio en Construcción</h1>
           <p className="text-gray-300">Por favor, configura tu información desde el panel de administración</p>
           <a 
             href="/admin" 
-            className="inline-block mt-4 px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors"
+            className="inline-block mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
           >
             Ir a Administración
           </a>
@@ -158,7 +158,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white relative">
       <AnimatedBackground />
       
       {/* Navigation */}
@@ -168,7 +168,7 @@ export default function Home() {
             <motion.h1 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+              className="text-xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent"
             >
               {personalInfo.fullName}
             </motion.h1>
@@ -179,8 +179,8 @@ export default function Home() {
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className={`capitalize hover:text-purple-400 transition-colors ${
-                    activeSection === section ? 'text-purple-400' : 'text-gray-300'
+                  className={`capitalize hover:text-blue-400 transition-colors ${
+                    activeSection === section ? 'text-blue-400' : 'text-gray-300'
                   }`}
                 >
                   {section === 'about' ? 'Sobre Mí' : 
@@ -213,7 +213,7 @@ export default function Home() {
                   key={section}
                   onClick={() => scrollToSection(section)}
                   className={`block w-full text-left py-2 px-4 rounded hover:bg-white/10 capitalize ${
-                    activeSection === section ? 'text-purple-400 bg-white/5' : 'text-gray-300'
+                    activeSection === section ? 'text-blue-400 bg-white/5' : 'text-gray-300'
                   }`}
                 >
                   {section === 'about' ? 'Sobre Mí' : 

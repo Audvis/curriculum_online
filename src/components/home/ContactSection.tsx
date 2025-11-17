@@ -20,7 +20,7 @@ export function ContactSection({ personalInfo }: { personalInfo: PersonalInfo })
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+          className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent"
         >
           Contacto
         </motion.h2>
@@ -34,25 +34,25 @@ export function ContactSection({ personalInfo }: { personalInfo: PersonalInfo })
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {personalInfo.email && (
               <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-3 text-gray-300 hover:text-purple-400 transition-colors">
-                <Mail className="text-purple-400" size={20} />
+                <Mail className="text-blue-400" size={20} />
                 <span>{personalInfo.email}</span>
               </a>
             )}
             {personalInfo.phone && (
               <a href={`tel:${personalInfo.phone}`} className="flex items-center gap-3 text-gray-300 hover:text-purple-400 transition-colors">
-                <Phone className="text-purple-400" size={20} />
+                <Phone className="text-blue-400" size={20} />
                 <span>{personalInfo.phone}</span>
               </a>
             )}
             {personalInfo.location && (
               <div className="flex items-center gap-3 text-gray-300">
-                <MapPin className="text-purple-400" size={20} />
+                <MapPin className="text-blue-400" size={20} />
                 <span>{personalInfo.location}</span>
               </div>
             )}
             {personalInfo.website && (
               <a href={personalInfo.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-300 hover:text-purple-400 transition-colors">
-                <Globe className="text-purple-400" size={20} />
+                <Globe className="text-blue-400" size={20} />
                 <span>Website</span>
               </a>
             )}

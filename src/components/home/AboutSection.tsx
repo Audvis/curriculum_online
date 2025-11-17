@@ -33,7 +33,7 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
               <img
                 src={personalInfo.avatar}
                 alt={personalInfo.fullName}
-                className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-purple-500 shadow-2xl"
+              className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-blue-500 shadow-2xl"
               />
             </motion.div>
           )}
@@ -42,7 +42,7 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent"
+            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 bg-clip-text text-transparent"
           >
             {personalInfo.fullName}
           </motion.h1>
@@ -51,7 +51,7 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="text-2xl md:text-3xl text-purple-300 mb-8"
+            className="text-2xl md:text-3xl text-blue-300 mb-8"
           >
             {personalInfo.title}
           </motion.h2>
@@ -74,7 +74,7 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
             {personalInfo.email && (
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-full transition-all hover:scale-105"
+                className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-full transition-all hover:scale-105"
               >
                 <Mail size={20} />
                 <span>Contactar</span>
