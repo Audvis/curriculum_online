@@ -11,15 +11,17 @@ import { ExperienceForm } from '@/components/admin/ExperienceForm';
 import { EducationForm } from '@/components/admin/EducationForm';
 import { ProjectForm } from '@/components/admin/ProjectForm';
 import { SkillsForm } from '@/components/admin/SkillsForm';
-import { 
-  User, 
-  Briefcase, 
-  GraduationCap, 
-  Code, 
+import {
+  User,
+  Briefcase,
+  GraduationCap,
+  Code,
   Award,
   Settings,
   Eye,
-  Save
+  Save,
+  Download,
+  Loader2
 } from 'lucide-react';
 
 interface PersonalInfo {
@@ -83,6 +85,7 @@ export default function AdminPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
+  const [downloadingPDF, setDownloadingPDF] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -122,6 +125,34 @@ export default function AdminPage() {
     window.open('/', '_blank');
   };
 
+  const handleDownloadPDF = async () => {
+    setDownloadingPDF(true);
+    try {
+      const response = await fetch('/api/resume');
+      if (!response.ok) {
+        throw new Error('Failed to generate PDF');
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const contentDisposition = response.headers.get('Content-Disposition');
+      const fileName = contentDisposition
+        ? contentDisposition.split('filename="')[1]?.replace('"', '') || 'Resume.pdf'
+        : 'Resume.pdf';
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      alert('Error al generar el PDF. Por favor intenta de nuevo.');
+    } finally {
+      setDownloadingPDF(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -147,6 +178,19 @@ export default function AdminPage() {
             <p className="text-gray-300">Gestiona tu portfolio profesional</p>
           </div>
           <div className="flex gap-4">
+            <Button
+              onClick={handleDownloadPDF}
+              disabled={downloadingPDF}
+              variant="outline"
+              className="bg-purple-600/50 border-purple-400/50 text-white hover:bg-purple-600/70"
+            >
+              {downloadingPDF ? (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              ) : (
+                <Download className="w-4 h-4 mr-2" />
+              )}
+              {downloadingPDF ? 'Generando...' : 'Descargar CV'}
+            </Button>
             <Button
               onClick={handleViewPortfolio}
               variant="outline"
