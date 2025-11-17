@@ -24,7 +24,7 @@ export function SkillsSection({ skills }: { skills: Skill[] }) {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+          className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent"
         >
           Habilidades
         </motion.h2>
@@ -54,7 +54,7 @@ export function SkillsSection({ skills }: { skills: Skill[] }) {
                       {[...Array(5)].map((_, i) => (
                         <div
                           key={i}
-                          className={`w-2 h-2 rounded-full mx-0.5 ${i < skill.level ? 'bg-purple-400' : 'bg-gray-600'}`}
+                          className={`w-2 h-2 rounded-full mx-0.5 ${i < skill.level ? 'bg-blue-400' : 'bg-gray-600'}`}
                         />
                       ))}
                     </div>

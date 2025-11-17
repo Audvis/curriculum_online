@@ -26,14 +26,14 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+          className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent"
         >
           Proyectos Destacados
         </motion.h2>
 
         {featuredProjects.length > 0 && (
           <div className="mb-16">
-            <h3 className="text-2xl font-semibold text-purple-300 mb-8 text-center">Destacados</h3>
+            <h3 className="text-2xl font-semibold text-blue-300 mb-8 text-center">Destacados</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredProjects.map((project, index) => (
                 <motion.div
@@ -66,7 +66,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
                           .map((tech, i) => (
                             <span
                               key={i}
-                              className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-full text-xs border border-purple-600/30"
+                              className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-full text-xs border border-blue-600/30"
                             >
                               {tech.trim()}
                             </span>
@@ -79,7 +79,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm"
+                          className="flex items-center gap-1 text-blue-400 hover:text-blue-300 text-sm"
                         >
                           <ExternalLink size={16} />
                           <span>Ver</span>
@@ -90,7 +90,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm"
+                          className="flex items-center gap-1 text-blue-400 hover:text-blue-300 text-sm"
                         >
                           <Github size={16} />
                           <span>Código</span>
@@ -106,7 +106,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
 
         {otherProjects.length > 0 && (
           <div>
-            <h3 className="text-2xl font-semibold text-purple-300 mb-8 text-center">Otros Proyectos</h3>
+            <h3 className="text-2xl font-semibold text-blue-300 mb-8 text-center">Otros Proyectos</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {otherProjects.map((project, index) => (
                 <motion.div
@@ -127,7 +127,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm"
+                        className="flex items-center gap-1 text-blue-400 hover:text-blue-300 text-sm"
                       >
                         <ExternalLink size={14} />
                         <span>Ver</span>
@@ -138,7 +138,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm"
+                        className="flex items-center gap-1 text-blue-400 hover:text-blue-300 text-sm"
                       >
                         <Github size={14} />
                         <span>Código</span>

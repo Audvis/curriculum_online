@@ -17,7 +17,7 @@ export function FloatingCode({
   position = [0, 0, 0],
   rotation = [0, 0, 0],
   scale = 1,
-  color = '#8b5cf6',
+  color = '#ffffff',
 }: FloatingCodeProps) {
   const groupRef = useRef<Group>(null);
   const initialY = position[1];

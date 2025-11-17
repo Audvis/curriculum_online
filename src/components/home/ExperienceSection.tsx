@@ -28,7 +28,7 @@ export function ExperienceSection({ experiences }: { experiences: Experience[] }
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+          className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent"
         >
           Experiencia Profesional
         </motion.h2>
@@ -46,7 +46,7 @@ export function ExperienceSection({ experiences }: { experiences: Experience[] }
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                 <div>
                   <h3 className="text-2xl font-bold text-white mb-2">{exp.position}</h3>
-                  <p className="text-xl text-purple-300">{exp.company}</p>
+                  <p className="text-xl text-blue-300">{exp.company}</p>
                 </div>
                 <div className="flex items-center gap-2 text-gray-300 mt-2 md:mt-0">
                   <Calendar size={16} />
@@ -63,7 +63,7 @@ export function ExperienceSection({ experiences }: { experiences: Experience[] }
                   {exp.technologies.split(',').map((tech, i) => (
                     <span
                       key={i}
-                      className="px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-sm border border-purple-600/30"
+                      className="px-3 py-1 bg-blue-600/20 text-blue-300 rounded-full text-sm border border-blue-600/30"
                     >
                       {tech.trim()}
                     </span>
