@@ -51,3 +51,4 @@ server.log
 *.sqlite
 prisma/*.db
 db/*.db
+node_modules

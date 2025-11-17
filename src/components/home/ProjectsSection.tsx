@@ -20,7 +20,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
   const otherProjects = projects.filter((p) => !p.featured);
 
   return (
-    <section id="projects" className="py-20 relative z-10">
+    <section id="projects" className="min-h-screen py-20 relative z-10 flex items-center">
       <div className="container mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0 }}

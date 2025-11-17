@@ -14,7 +14,7 @@ type PersonalInfo = {
 
 export function ContactSection({ personalInfo }: { personalInfo: PersonalInfo }) {
   return (
-    <section id="contact" className="py-20 relative z-10">
+    <section id="contact" className="min-h-screen py-20 relative z-10 flex items-center">
       <div className="container mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0 }}
