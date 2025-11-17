@@ -22,7 +22,7 @@ function formatDate(dateString?: string) {
 export function EducationSection({ education }: { education: Education[] }) {
   if (!Array.isArray(education) || education.length === 0) return null;
   return (
-    <section id="education" className="py-20 relative z-10">
+    <section id="education" className="min-h-screen py-20 relative z-10 flex items-center">
       <div className="container mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0 }}
