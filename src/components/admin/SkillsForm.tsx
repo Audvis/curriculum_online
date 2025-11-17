@@ -135,53 +135,53 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
   }, {} as Record<string, Skill[]>);
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold text-white">Habilidades</h3>
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+        <h3 className="text-lg sm:text-xl font-semibold text-white">Habilidades</h3>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button 
+            <Button
               onClick={resetForm}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+              className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white text-sm sm:text-base h-9 sm:h-10 w-full sm:w-auto"
             >
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />
               Agregar Habilidad
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-slate-900 border-white/20 text-white max-w-md">
+          <DialogContent className="bg-slate-900 border-white/20 text-white max-w-[95vw] sm:max-w-md max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>
+              <DialogTitle className="text-lg sm:text-xl">
                 {editingSkill ? 'Editar Habilidad' : 'Nueva Habilidad'}
               </DialogTitle>
-              <DialogDescription className="text-gray-300">
+              <DialogDescription className="text-gray-300 text-sm sm:text-base">
                 Agrega tus competencias técnicas
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-white">Nombre de la Habilidad</Label>
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="name" className="text-white text-sm sm:text-base">Nombre de la Habilidad</Label>
                 <Input
                   id="name"
                   value={formData.name}
                   onChange={(e) => handleChange('name', e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 text-sm sm:text-base h-9 sm:h-10"
                   placeholder="React, Python, etc."
                   required
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="category" className="text-white">Categoría</Label>
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="category" className="text-white text-sm sm:text-base">Categoría</Label>
                 <Select
                   value={formData.category}
                   onValueChange={(value) => handleChange('category', value)}
                 >
-                  <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                  <SelectTrigger className="bg-white/10 border-white/20 text-white text-sm sm:text-base h-9 sm:h-10">
                     <SelectValue placeholder="Selecciona una categoría" />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800 border-white/20">
                     {CATEGORIES.map((category) => (
-                      <SelectItem key={category} value={category} className="text-white">
+                      <SelectItem key={category} value={category} className="text-white text-sm sm:text-base">
                         {category}
                       </SelectItem>
                     ))}
@@ -189,18 +189,18 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="level" className="text-white">Nivel</Label>
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="level" className="text-white text-sm sm:text-base">Nivel</Label>
                 <Select
                   value={formData.level.toString()}
                   onValueChange={(value) => handleChange('level', parseInt(value))}
                 >
-                  <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                  <SelectTrigger className="bg-white/10 border-white/20 text-white text-sm sm:text-base h-9 sm:h-10">
                     <SelectValue placeholder="Selecciona un nivel" />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800 border-white/20">
                     {Object.entries(LEVEL_LABELS).map(([level, label]) => (
-                      <SelectItem key={level} value={level} className="text-white">
+                      <SelectItem key={level} value={level} className="text-white text-sm sm:text-base">
                         {label}
                       </SelectItem>
                     ))}
@@ -208,25 +208,25 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label className="text-white">Vista Previa del Nivel</Label>
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label className="text-white text-sm sm:text-base">Vista Previa del Nivel</Label>
                 <div className="flex items-center gap-2">
                   <div className="flex-1 bg-white/10 rounded-full h-2 overflow-hidden">
-                    <div 
+                    <div
                       className={`h-full ${LEVEL_COLORS[formData.level as keyof typeof LEVEL_COLORS]} transition-all duration-300`}
                       style={{ width: `${(formData.level / 5) * 100}%` }}
                     />
                   </div>
-                  <span className="text-sm text-gray-300 min-w-[60px]">
+                  <span className="text-xs sm:text-sm text-gray-300 min-w-[60px]">
                     {LEVEL_LABELS[formData.level as keyof typeof LEVEL_LABELS]}
                   </span>
                 </div>
               </div>
 
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 disabled={loading}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white w-full"
+                className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white w-full text-sm sm:text-base h-9 sm:h-10"
               >
                 {loading ? 'Guardando...' : (editingSkill ? 'Actualizar' : 'Agregar')}
               </Button>
@@ -235,52 +235,52 @@ export function SkillsForm({ skills, onUpdate }: SkillsFormProps) {
         </Dialog>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {Object.entries(groupedSkills).map(([category, categorySkills]) => (
           <Card key={category} className="bg-white/10 border-white/20 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
-                <Award className="w-5 h-5 text-purple-400" />
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-white flex items-center gap-2 text-base sm:text-lg">
+                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
                 {category}
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <CardContent className="p-4 sm:p-6 pt-0 sm:pt-0">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {categorySkills.map((skill) => (
-                  <div key={skill.id} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Zap className="w-4 h-4 text-purple-400" />
-                        <span className="text-white font-medium">{skill.name}</span>
+                  <div key={skill.id} className="flex items-center justify-between p-2.5 sm:p-3 bg-white/5 rounded-lg">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
+                        <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400 flex-shrink-0" />
+                        <span className="text-white font-medium text-sm sm:text-base truncate">{skill.name}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <div className="flex-1 bg-white/10 rounded-full h-2 overflow-hidden max-w-[120px]">
-                          <div 
+                        <div className="flex-1 bg-white/10 rounded-full h-1.5 sm:h-2 overflow-hidden max-w-[100px] sm:max-w-[120px]">
+                          <div
                             className={`h-full ${LEVEL_COLORS[skill.level as keyof typeof LEVEL_COLORS]} transition-all duration-300`}
                             style={{ width: `${(skill.level / 5) * 100}%` }}
                           />
                         </div>
-                        <span className="text-xs text-gray-300">
+                        <span className="text-[10px] sm:text-xs text-gray-300">
                           {LEVEL_LABELS[skill.level as keyof typeof LEVEL_LABELS]}
                         </span>
                       </div>
                     </div>
-                    <div className="flex gap-2 ml-4">
+                    <div className="flex gap-1 sm:gap-2 ml-2 sm:ml-4">
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => handleEdit(skill)}
-                        className="text-gray-400 hover:text-white hover:bg-white/10"
+                        className="text-gray-400 hover:text-white hover:bg-white/10 h-7 w-7 sm:h-8 sm:w-8 p-0"
                       >
-                        <Edit className="w-4 h-4" />
+                        <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => handleDelete(skill.id)}
-                        className="text-gray-400 hover:text-red-400 hover:bg-red-400/10"
+                        className="text-gray-400 hover:text-red-400 hover:bg-red-400/10 h-7 w-7 sm:h-8 sm:w-8 p-0"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                       </Button>
                     </div>
                   </div>

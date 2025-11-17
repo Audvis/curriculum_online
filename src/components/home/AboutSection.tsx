@@ -15,8 +15,8 @@ type PersonalInfo = {
 
 export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
   return (
-    <section id="about" className="min-h-screen flex items-center justify-center relative z-10 pt-20">
-      <div className="container mx-auto px-6">
+    <section id="about" className="min-h-screen flex items-center justify-center relative z-10 pt-16 sm:pt-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -28,12 +28,12 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: 'spring' }}
-              className="mb-8"
+              className="mb-6 sm:mb-8"
             >
               <img
                 src={personalInfo.avatar}
                 alt={personalInfo.fullName}
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-blue-500 shadow-2xl"
+                className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full mx-auto border-4 border-blue-500 shadow-2xl object-cover"
               />
             </motion.div>
           )}
@@ -42,7 +42,7 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 bg-clip-text text-transparent leading-tight"
           >
             {personalInfo.fullName}
           </motion.h1>
@@ -51,7 +51,7 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="text-2xl md:text-3xl text-blue-300 mb-8"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-blue-300 mb-6 sm:mb-8"
           >
             {personalInfo.title}
           </motion.h2>
@@ -60,7 +60,7 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="text-lg md:text-xl text-gray-300 mb-12 leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto"
           >
             {personalInfo.bio}
           </motion.p>
@@ -69,14 +69,14 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="flex flex-wrap justify-center gap-4"
+            className="flex flex-wrap justify-center gap-3 sm:gap-4"
           >
             {personalInfo.email && (
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-full transition-all hover:scale-105"
+                className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-700 rounded-full transition-all hover:scale-105 text-sm sm:text-base"
               >
-                <Mail size={20} />
+                <Mail size={18} className="sm:w-5 sm:h-5" />
                 <span>Contactar</span>
               </a>
             )}
@@ -85,9 +85,9 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-all hover:scale-105"
+                className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-all hover:scale-105 text-sm sm:text-base"
               >
-                <Github size={20} />
+                <Github size={18} className="sm:w-5 sm:h-5" />
                 <span>GitHub</span>
               </a>
             )}
@@ -96,9 +96,9 @@ export function AboutSection({ personalInfo }: { personalInfo: PersonalInfo }) {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-all hover:scale-105"
+                className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-all hover:scale-105 text-sm sm:text-base"
               >
-                <Linkedin size={20} />
+                <Linkedin size={18} className="sm:w-5 sm:h-5" />
                 <span>LinkedIn</span>
               </a>
             )}

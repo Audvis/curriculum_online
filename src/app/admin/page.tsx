@@ -135,51 +135,58 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-4 sm:p-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-6 sm:mb-8"
       >
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-white mb-2">Panel de Administración</h1>
-            <p className="text-gray-300">Gestiona tu portfolio profesional</p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1 sm:mb-2">Panel de Administración</h1>
+            <p className="text-sm sm:text-base text-gray-300">Gestiona tu portfolio profesional</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-2 sm:gap-4">
             <Button
               onClick={handleViewPortfolio}
               variant="outline"
-              className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+              size="sm"
+              className="bg-white/10 border-white/20 text-white hover:bg-white/20 text-xs sm:text-sm"
             >
-              <Eye className="w-4 h-4 mr-2" />
-              Ver Portfolio
+              <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Ver Portfolio</span>
+              <span className="sm:hidden">Ver</span>
             </Button>
           </div>
         </div>
       </motion.div>
 
-      <Tabs defaultValue="personal" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5 bg-white/10 border border-white/20">
-          <TabsTrigger value="personal" className="text-white data-[state=active]:bg-white/20">
-            <User className="w-4 h-4 mr-2" />
-            Personal
+      <Tabs defaultValue="personal" className="space-y-4 sm:space-y-6">
+        <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 bg-white/10 border border-white/20 h-auto p-1 gap-1">
+          <TabsTrigger value="personal" className="text-white data-[state=active]:bg-white/20 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 py-2 sm:py-1.5 text-xs sm:text-sm">
+            <User className="w-4 h-4" />
+            <span className="hidden sm:inline">Personal</span>
+            <span className="sm:hidden text-[10px]">Personal</span>
           </TabsTrigger>
-          <TabsTrigger value="experience" className="text-white data-[state=active]:bg-white/20">
-            <Briefcase className="w-4 h-4 mr-2" />
-            Experiencia
+          <TabsTrigger value="experience" className="text-white data-[state=active]:bg-white/20 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 py-2 sm:py-1.5 text-xs sm:text-sm">
+            <Briefcase className="w-4 h-4" />
+            <span className="hidden sm:inline">Experiencia</span>
+            <span className="sm:hidden text-[10px]">Exp.</span>
           </TabsTrigger>
-          <TabsTrigger value="education" className="text-white data-[state=active]:bg-white/20">
-            <GraduationCap className="w-4 h-4 mr-2" />
-            Educación
+          <TabsTrigger value="education" className="text-white data-[state=active]:bg-white/20 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 py-2 sm:py-1.5 text-xs sm:text-sm">
+            <GraduationCap className="w-4 h-4" />
+            <span className="hidden sm:inline">Educación</span>
+            <span className="sm:hidden text-[10px]">Edu.</span>
           </TabsTrigger>
-          <TabsTrigger value="projects" className="text-white data-[state=active]:bg-white/20">
-            <Code className="w-4 h-4 mr-2" />
-            Proyectos
+          <TabsTrigger value="projects" className="text-white data-[state=active]:bg-white/20 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 py-2 sm:py-1.5 text-xs sm:text-sm">
+            <Code className="w-4 h-4" />
+            <span className="hidden sm:inline">Proyectos</span>
+            <span className="sm:hidden text-[10px]">Proy.</span>
           </TabsTrigger>
-          <TabsTrigger value="skills" className="text-white data-[state=active]:bg-white/20">
-            <Award className="w-4 h-4 mr-2" />
-            Habilidades
+          <TabsTrigger value="skills" className="text-white data-[state=active]:bg-white/20 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 py-2 sm:py-1.5 text-xs sm:text-sm col-span-3 sm:col-span-1">
+            <Award className="w-4 h-4" />
+            <span className="hidden sm:inline">Habilidades</span>
+            <span className="sm:hidden text-[10px]">Habil.</span>
           </TabsTrigger>
         </TabsList>
 

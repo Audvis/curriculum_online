@@ -163,27 +163,27 @@ export default function Home() {
       
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-black/20 backdrop-blur-md z-50 border-b border-white/10">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex justify-between items-center">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="text-xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent"
+              className="text-base sm:text-lg md:text-xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent truncate max-w-[200px] sm:max-w-none"
             >
               {personalInfo.fullName}
             </motion.h1>
-            
+
             {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
+            <div className="hidden lg:flex space-x-6 xl:space-x-8">
               {['about', 'experience', 'education', 'projects', 'skills', 'contact'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className={`capitalize hover:text-blue-400 transition-colors ${
+                  className={`capitalize hover:text-blue-400 transition-colors text-sm xl:text-base ${
                     activeSection === section ? 'text-blue-400' : 'text-gray-300'
                   }`}
                 >
-                  {section === 'about' ? 'Sobre Mí' : 
+                  {section === 'about' ? 'Sobre Mí' :
                    section === 'experience' ? 'Experiencia' :
                    section === 'education' ? 'Educación' :
                    section === 'projects' ? 'Proyectos' :
@@ -195,7 +195,8 @@ export default function Home() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-white"
+              className="lg:hidden text-white p-2 -mr-2 hover:bg-white/10 rounded-lg transition-colors"
+              aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -206,17 +207,17 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="md:hidden mt-4 space-y-2"
+              className="lg:hidden mt-3 space-y-1 pb-2 max-h-[calc(100vh-80px)] overflow-y-auto"
             >
               {['about', 'experience', 'education', 'projects', 'skills', 'contact'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className={`block w-full text-left py-2 px-4 rounded hover:bg-white/10 capitalize ${
+                  className={`block w-full text-left py-3 px-4 rounded-lg hover:bg-white/10 capitalize transition-colors ${
                     activeSection === section ? 'text-blue-400 bg-white/5' : 'text-gray-300'
                   }`}
                 >
-                  {section === 'about' ? 'Sobre Mí' : 
+                  {section === 'about' ? 'Sobre Mí' :
                    section === 'experience' ? 'Experiencia' :
                    section === 'education' ? 'Educación' :
                    section === 'projects' ? 'Proyectos' :
